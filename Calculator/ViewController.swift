@@ -36,6 +36,20 @@ class ViewController: UIViewController {
     
     private var brain = CalculatorBrain() //컨트롤러에서 모델과 교류하기 위한 객체
     
+    var savedProgram: CalculatorBrain.PropertyList?
+    
+    @IBAction func save() { //저장
+        savedProgram = brain.program
+    }
+    
+    
+    @IBAction func restore() { //복구
+        if savedProgram != nil { //저장된게 있으면
+            brain.program = savedProgram!
+            displayValue = brain.result //가져온 결과 표시
+        }
+    }
+    
     @IBAction private func performOperation(_ sender: UIButton) {
         if userIsInTheMiddleOfTypying {
             brain.setOperand(operand: displayValue) //계산 값 설정
